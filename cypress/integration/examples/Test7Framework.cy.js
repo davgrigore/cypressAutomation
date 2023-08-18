@@ -17,7 +17,8 @@ describe ('My 7th Test Suite', function(){
         const homePage=new HomePage()
         const productPage=new ProductPage()
 
-    cy.visit('https://rahulshettyacademy.com/angularpractice/')
+    
+    cy.visit(Cypress.env('url')+'/angularpractice/')
     homePage.getNameBox().type(this.data.name)
     homePage.getGender().select(this.data.gender)
     homePage.getTwoWayDataBinding().should('have.value', this.data.name)
@@ -34,8 +35,26 @@ describe ('My 7th Test Suite', function(){
         cy.selectProduct(element)
     })
 
-    
+//Sum of products:   
     productPage.getCheckout().click()
+    let sum=0
+    cy.get('tr td:nth-child(4) strong').each(($el, index, $list) => {
+        const amount=$el.text()
+        let res = amount.split(" ")
+        res = res[1].trim()
+        sum=Number(sum)+Number(res)
+    }).then(function(){
+        cy.log(sum)
+    })
+
+    cy.get('h3 strong').then(function(element){
+        const amount=element.text()
+        let total = amount.split(" ")
+        total = total[1].trim()
+        expect(sum).to.equal(Number(total))
+    })
+    
+
     cy.contains('Checkout').click()
     cy.get('#country').type('Romania')
     cy.wait(6000)

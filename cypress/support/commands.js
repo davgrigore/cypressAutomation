@@ -8,6 +8,9 @@
 // https://on.cypress.io/custom-commands
 // ***********************************************
 //
+// -- This is a parent command --
+// Cypress.Commands.add('login', (email, password) => { ... })
+//
 Cypress.Commands.add('selectProduct', (productName) => {
 cy.get('h4.card-title').each(($el, index, $list) => {
     if($el.text().includes(productName)){
@@ -18,9 +21,6 @@ cy.get('h4.card-title').each(($el, index, $list) => {
 })
 
 
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
 //
 //
 // -- This is a child command --
