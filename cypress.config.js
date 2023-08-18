@@ -7,5 +7,6 @@ module.exports = defineConfig({
     },
     specPattern: 'cypress/integration/examples/*.js',
     chromeWebSecurity: false,
+    defaultCommandTimeout: 4000,
   },
 });

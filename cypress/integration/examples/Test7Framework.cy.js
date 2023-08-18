@@ -1,5 +1,8 @@
 /// <reference types="cypress" />
 
+import HomePage from '../pageObjects/HomePage'
+import ProductPage from '../pageObjects/ProductPage'
+
 describe ('My 7th Test Suite', function(){
  
    before(function(){
@@ -10,17 +13,42 @@ describe ('My 7th Test Suite', function(){
    })
    
    it('First Test in Framework', function() {
+        //Cypress.config('defaultCommandTimeout', 8000)
+        const homePage=new HomePage()
+        const productPage=new ProductPage()
 
     cy.visit('https://rahulshettyacademy.com/angularpractice/')
-    cy.get(':nth-child(1) > .form-control').type(this.data.name)
-    cy.get('select').select(this.data.gender)
-    cy.get(':nth-child(4) > .ng-untouched').should('have.value', this.data.name)
-    //Attribute value validation:
-    cy.get(':nth-child(1) > .form-control').should('have.attr', 'minlength', '2')
-    cy.get('#inlineRadio3').should('be.disabled')
+    homePage.getNameBox().type(this.data.name)
+    homePage.getGender().select(this.data.gender)
+    homePage.getTwoWayDataBinding().should('have.value', this.data.name)
+//Attribute value validation:
+    homePage.getNameBox().should('have.attr', 'minlength', '2')
+    homePage.getEntrepreneur().should('be.disabled')
 
-    cy.get(':nth-child(2) > .nav-link').click()
-    cy.selectProduct('Blackberry')
+    //cy.pause()
+    //cy.debug()
+
+//Command with multiple inputs from fixtures
+    homePage.getShopTab().click()
+    this.data.productName.forEach(function(element) {
+        cy.selectProduct(element)
+    })
+
+    
+    productPage.getCheckout().click()
+    cy.contains('Checkout').click()
+    cy.get('#country').type('Romania')
+    cy.wait(6000)
+    cy.get('.suggestions > ul > li > a').click()
+    cy.get('#checkbox2').click({force:true})
+    cy.get('.ng-untouched > .btn').click()
+    //cy.get('.alert').should('have.text', ' Success! Thank you! Your order will be delivered in next few weeks :-). ')
+    cy.get('.alert').then(function(element){
+        const actualText=element.text()
+        expect(actualText.includes('Success! Thank you! Your order will be delivered in next few weeks :-).')).to.be.true
+    })
+
+    
     
 
 
