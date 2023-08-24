@@ -10,10 +10,14 @@ Given('I open Ecommerce page', () => {
     cy.visit(Cypress.env('url')+'/angularpractice/')
 })
 
-When('I add items to Cart', function(dataTable) {
+When('I add items to Cart', function() {
     homePage.getShopTab().click()
-    cy.get(':nth-child(1) > .card > .card-footer > .btn').click()
-    cy.get(':nth-child(3) > .card > .card-footer > .btn').click()
+    //cy.get(':nth-child(1) > .card > .card-footer > .btn').click()
+    //cy.get(':nth-child(3) > .card > .card-footer > .btn').click()
+    homePage.getShopTab().click()
+    this.data.productName.forEach(function(element) {
+        cy.selectProduct(element)
+    })
 })
 
 Then('Validate the total prices', () => {

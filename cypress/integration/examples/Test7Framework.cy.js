@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import HomePage from '../pageObjects/HomePage'
+import HomePage from '../../pageObjects/HomePage'
 import ProductPage from '../pageObjects/ProductPage'
 
 describe ('My 7th Test Suite', function(){
