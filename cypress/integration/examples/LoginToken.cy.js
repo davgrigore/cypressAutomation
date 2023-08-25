@@ -25,7 +25,18 @@ describe ('Login Token', function(){
         })
         //cy.get('.ta-item > .ng-star-inserted').click()
         cy.get('.btnn').click()
-        cy.get('.order-summary button').contains('CSV').click()
+        cy.wait(2000)
+        cy.get('.order-summary button').contains('Excel').click()
+
+        const excelToJson = require('convert-excel-to-json');
+        const filePath = Cypress.config("fileServerFolder")+"/cypress/downloads/order-invoice_davgrigore.xlsx"
+        cy.task('excelToJsonConverter', filePath).then(function(result){
+            cy.log("Invoice number: " + result.data[1].A)
+        })
+        
+       
+
+
 
     })
 

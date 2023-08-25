@@ -6,14 +6,12 @@
   "scripts": {
     "test": "node_modules\\.bin\\cypress run"
   },
-
-"cypress-cucumber-preprocessor":{
-  "json": {
-    "enabled": true,
-    "output": "cypress/cucumberReports/results.json"
-  }
-},
-
+  "cypress-cucumber-preprocessor": {
+    "json": {
+      "enabled": true,
+      "output": "cypress/cucumberReports/results.json"
+    }
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
@@ -24,6 +22,7 @@
     "@badeball/cypress-cucumber-preprocessor": "^18.0.4",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
     "@cypress/browserify-preprocessor": "latest",
+    "convert-excel-to-json": "^1.7.0",
     "cypress": "latest"
   }
 }
